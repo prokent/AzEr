@@ -2,9 +2,12 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 import sqlite3
 import os
+from dotenv import load_dotenv
 
 # Статический токен бота
-TOKEN = "7112295260:AAFpQ1Cqo31Odq-69t54stivkoJ21eTJkug"
+load_dotenv()  # Загружает переменные из файла .env
+
+TOKEN = os.getenv('API_TOKEN')
 
 # Полный путь к базе данных
 DB_PATH = '/Users/pro.kent/Documents/GitHub/lilia/blog.db'
