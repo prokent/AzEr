@@ -101,12 +101,20 @@
             <li class="nav-item">
               <a class="nav-link btn btn-warning py-1 px-2" href="https://t.me/prokent67777_bot">Support</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link btn btn-warning py-1 px-2" href="/login">Вход</a>
-            </li>
+            {% if 'user_id' in session %}
+              <li class="nav-item">
+                <form method="POST" action="{{ url_for('logout') }}" class="d-inline">
+                  <button type="submit" class="nav-link btn btn-warning py-1 px-2">Выход</button>
+                </form>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link btn btn-warning py-1 px-2" href="{{ url_for('login') }}">Вход</a>
+              </li>
+            {% endif %}
           </ul>
         </div>
-      </div>
+      </div>  
     </nav>
   </header>
   

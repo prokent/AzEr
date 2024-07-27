@@ -74,11 +74,12 @@ def login():
  
     return render_template('login.html')
 
-@app.route('/logout')
+@app.route('/logout', methods=['POST'])
 def logout():
     session.pop('user_id', None)
     flash('Вы вышли из системы.')
     return redirect(url_for('home'))
+
 
 def login_required(f):
     @wraps(f)
