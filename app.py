@@ -1,9 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+# Обновлённый путь к базе данных
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/pro.kent/Documents/GitHub/lilia/blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -16,7 +17,7 @@ class Article(db.Model):
 
     def __repr__(self):
         return '<Article %r>' % self.id
- 
+
 
 @app.route('/')
 def home():
@@ -27,7 +28,6 @@ def home():
 def pro2():
     return render_template('pro2.html')
 
-
 @app.route('/posts')
 def posts():
     articles = Article.query.order_by(Article.date.desc()).all()
@@ -36,11 +36,11 @@ def posts():
 
 @app.route('/posts/<int:id>/del')
 def post_delete(id):
-    article = Article.query.get_or_404(id)  
+    article = Article.query.get_or_404(id)
     try:
         db.session.delete(article)
         db.session.commit()
-        return redirect ('/posts')   
+        return redirect('/posts')
     except:
         return "При удалении статьи произошла ошибка"
 
@@ -48,14 +48,14 @@ def post_delete(id):
 
 @app.route('/posts/<int:id>')
 def post_detail(id):
-    article = Article.query.get_or_404(id)  
+    article = Article.query.get_or_404(id)
     return render_template('post_detail.html', article=article)
 
 
 @app.route('/posts/<int:id>/update', methods=['POST', 'GET'])
 def post_update(id):
     article = Article.query.get_or_404(id)
-    if request.method == "POST":
+    if request.method == "POST": 
         article.title = request.form["title"]
         article.intro = request.form["intro"]
         article.text = request.form["text"]
@@ -65,8 +65,7 @@ def post_update(id):
         except:
             return "При редактировке статьи произошла ошибка"
     else:
-        return render_template('post_update.html',article=article)
-
+        return render_template('post_update.html', article=article)
 
 
 @app.route('/create-article', methods=['POST', 'GET'])
@@ -88,5 +87,10 @@ def create_article():
     else:
         return render_template('create-article.html')
 
+@app.route('/db-path')
+def db_path():
+    return f"Путь к базе данных: {app.config['SQLALCHEMY_DATABASE_URI']}"
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    print(f"Путь к базе данных: {app.config['SQLALCHEMY_DATABASE_URI']}")
+    app.run(debug=True, port=5002)

@@ -2,6 +2,7 @@
 
 {% extends "base.html" %}
 
+
 {% block title %}
 Все статьи
 {% endblock %}
@@ -19,7 +20,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ el.title }}</h5>
                         <p class="card-text">{{ el.intro }}</p>
-                        <p class="text-muted"><strong>Дата:</strong> {{ el.date.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                        <p class="text-muted"><strong>Дата:</strong> {% if el.date %}{{ el.date.strftime('%Y-%m-%d %H:%M:%S') }}{% else %}Дата не указана{% endif %}</p>
                         <a href="/posts/{{ el.id }}"class="btn btn-warning">Детальнее</a>
                     </div>
                 </div>
@@ -29,6 +30,5 @@
     {% else %}
     <p>У нас ещё нету статей на сайте<p>
     {% endif %}
-    </div>
+</div>
 {% endblock %}
-

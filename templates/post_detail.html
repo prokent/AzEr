@@ -10,11 +10,10 @@
     <div class="card border-light shadow-sm">
         <div class="card-body">
             <p class="card-text">{{ article.text }}</p>
-            <p class="text-muted"><strong>Дата:</strong> {{ article.date.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+            <p class="text-muted"><strong>Дата:</strong> {% if article.date %}{{ article.date.strftime('%Y-%m-%d %H:%M:%S') }}{% else %}Дата не указана{% endif %}</p>
             <a href="{{ url_for('posts') }}" class="btn btn-warning btn-block">Назад к списку</a>
-            <a href="/posts/{{ article.id }}/update"class="btn btn-secondary">Редактировать</a>
-            <a href="/posts/{{ article.id }}/del"class="btn btn">Удалить</a>
-            
+            <a href="/posts/{{ article.id }}/update" class="btn btn-secondary">Редактировать</a>
+            <a href="/posts/{{ article.id }}/del" class="btn btn">Удалить</a>
         </div>
     </div>
 </div>
