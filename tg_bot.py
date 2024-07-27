@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 # Статический токен бота
 load_dotenv()  # Загружает переменные из файла .env
 
-TOKEN = os.getenv('API_TOKEN')
+TOKEN = '7112295260:AAFpQ1Cqo31Odq-69t54stivkoJ21eTJkug'
 
 # Полный путь к базе данных
 DB_PATH = '/Users/pro.kent/Documents/GitHub/lilia/blog.db'
